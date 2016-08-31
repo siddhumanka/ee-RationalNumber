@@ -1,3 +1,4 @@
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.internal.MethodSorter;
 
@@ -59,17 +60,17 @@ public class RationalTest {
     }
 
     @org.junit.Test
-    public void itShouldConvertRationalNumberToFloat() throws Exception {
+    public void itShouldConvertRationalNumberToLong() throws Exception {
         assertEquals(rationalNumber2.longValue(), 0l);
     }
 
     @Test
-    public void itShouldConvertRationalNumberToFloat() throws Exception {
+    public void itShouldConvertRationalNumberToDouble() throws Exception {
         assertEquals(rationalNumber2.doubleValue(), 0d);
     }
 
     @Test
-    public void itShouldConvertRationalNumberToDouble() throws Exception {
+    public void itShouldConvertRationalNumberToFloat() throws Exception {
         assertEquals(rationalNumber2.floatValue(), 0f);
 
     }
@@ -115,8 +116,8 @@ public class RationalTest {
     @Test
     public void itShouldReduceRationalNumberToSimplestForm() throws InvocationTargetException, IllegalAccessException {
         reductionMethod.setAccessible(true);
-        Rational tempRational = (Rational) reductionMethod.invoke(rationalNumber1);
-        assertEquals(tempRational.toString(), "1/2");
+        reductionMethod.invoke(rationalNumber1);
+        assertEquals(rationalNumber1.toString(), "1/2");
     }
     @Test
     public void itShouldProduceRightGCD() throws InvocationTargetException, IllegalAccessException {

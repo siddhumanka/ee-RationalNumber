@@ -72,37 +72,42 @@ public class Rational extends Number implements Comparable<Rational> {
 
     @Override
     public String toString() {
-        return this.reduceToSimplestForm().numerator +"/"+ this.reduceToSimplestForm().denominator;
+        this.reduceToSimplestForm();
+        return this.numerator +"/"+ this.denominator;
     }
 
     public Rational add(Rational secondRational){
         Rational tempRational = new Rational(1l,1l);
         tempRational.numerator = this.numerator * secondRational.denominator + this.denominator*secondRational.numerator;
         tempRational.denominator = this.denominator * secondRational.denominator;
-
-        return  tempRational.reduceToSimplestForm();
+        tempRational.reduceToSimplestForm();
+        return tempRational;
     }
 
     public Rational subtract(Rational secondRational){
         Rational tempRational = new Rational(1l,1l);
         tempRational.numerator = this.numerator * secondRational.denominator - this.denominator*secondRational.numerator;
         tempRational.denominator = this.denominator * secondRational.denominator;
-        return  tempRational.reduceToSimplestForm();
+        tempRational.reduceToSimplestForm();
+        return tempRational;
     }
 
     public Rational multiply(Rational secondRational){
         Rational tempRational = new Rational(1l,1l);
         tempRational.numerator = this.numerator * secondRational.numerator ;
         tempRational.denominator = this.denominator * secondRational.denominator;
-        return  tempRational.reduceToSimplestForm();
+        tempRational.reduceToSimplestForm();
+        return  tempRational;
     }
 
     public Rational divide(Rational secondRational){
         Rational tempRational = new Rational(1l,1l);
         tempRational.numerator = this.numerator * secondRational.denominator;
         tempRational.denominator = this.denominator * secondRational.numerator;
-        return  tempRational.reduceToSimplestForm();
+        tempRational.reduceToSimplestForm();
+        return tempRational;
     }
+
     @TestMe
     private  long gcd (long firstNumber , long secondNumber){
         if(secondNumber == 0){
@@ -112,10 +117,10 @@ public class Rational extends Number implements Comparable<Rational> {
     }
 
     @TestMe
-    private Rational reduceToSimplestForm(){
-        return new Rational(this.numerator/gcd(this.numerator,this.denominator),
-                this.denominator/gcd(this.numerator,this.denominator));
-
+    private void reduceToSimplestForm(){
+        long gcd = gcd(this.numerator,this.denominator);
+        this.numerator = this.numerator/gcd;
+        this.denominator = this.denominator/gcd;
     }
 
 }
