@@ -72,7 +72,7 @@ public class Rational extends Number implements Comparable<Rational> {
 
     @Override
     public String toString() {
-        return this.makeSimplest().numerator +"/"+ this.makeSimplest().denominator;
+        return this.reduceToSimplestForm().numerator +"/"+ this.reduceToSimplestForm().denominator;
     }
 
     public Rational add(Rational secondRational){
@@ -80,28 +80,28 @@ public class Rational extends Number implements Comparable<Rational> {
         tempRational.numerator = this.numerator * secondRational.denominator + this.denominator*secondRational.numerator;
         tempRational.denominator = this.denominator * secondRational.denominator;
 
-        return  tempRational.makeSimplest();
+        return  tempRational.reduceToSimplestForm();
     }
 
     public Rational subtract(Rational secondRational){
         Rational tempRational = new Rational(1l,1l);
         tempRational.numerator = this.numerator * secondRational.denominator - this.denominator*secondRational.numerator;
         tempRational.denominator = this.denominator * secondRational.denominator;
-        return  tempRational.makeSimplest();
+        return  tempRational.reduceToSimplestForm();
     }
 
     public Rational multiply(Rational secondRational){
         Rational tempRational = new Rational(1l,1l);
         tempRational.numerator = this.numerator * secondRational.numerator ;
         tempRational.denominator = this.denominator * secondRational.denominator;
-        return  tempRational.makeSimplest();
+        return  tempRational.reduceToSimplestForm();
     }
 
     public Rational divide(Rational secondRational){
         Rational tempRational = new Rational(1l,1l);
         tempRational.numerator = this.numerator * secondRational.denominator;
         tempRational.denominator = this.denominator * secondRational.numerator;
-        return  tempRational.makeSimplest();
+        return  tempRational.reduceToSimplestForm();
     }
     @TestMe
     private  long gcd (long firstNumber , long secondNumber){
@@ -112,8 +112,9 @@ public class Rational extends Number implements Comparable<Rational> {
     }
 
     @TestMe
-    private Rational makeSimplest(){
-        return new Rational(this.numerator/gcd(this.numerator,this.denominator),this.denominator/gcd(this.numerator,this.denominator));
+    private Rational reduceToSimplestForm(){
+        return new Rational(this.numerator/gcd(this.numerator,this.denominator),
+                this.denominator/gcd(this.numerator,this.denominator));
 
     }
 
