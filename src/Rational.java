@@ -1,4 +1,8 @@
 /**
+ * @Documented
+ * @author Sid
+ * @version 0.1
+ *
  * Created by user-2 on 31/8/16.
  */
 public class Rational extends Number implements Comparable<Rational> {
@@ -47,7 +51,7 @@ public class Rational extends Number implements Comparable<Rational> {
     @Override
     public int compareTo(Rational o) {
         if(o==null){
-            throw  new NullPointerException("null object");
+            throw  new NullPointerException("Null object");
         }
         if(!(o instanceof  Rational)){
             throw new IllegalArgumentException("Invaild argument type");
@@ -68,7 +72,7 @@ public class Rational extends Number implements Comparable<Rational> {
 
     @Override
     public String toString() {
-        return this.numerator +"/"+ this.denominator;
+        return this.makeSimplest().numerator +"/"+ this.makeSimplest().denominator;
     }
 
     public Rational add(Rational secondRational){
@@ -100,7 +104,6 @@ public class Rational extends Number implements Comparable<Rational> {
         return  tempRational.makeSimplest();
     }
 
-    @TestMe
     private  long gcd (long firstNumber , long secondNumber){
         if(secondNumber == 0){
             return firstNumber;
@@ -111,14 +114,8 @@ public class Rational extends Number implements Comparable<Rational> {
 
     @TestMe
     private Rational makeSimplest(){
-        long gcd =gcd(this.numerator,this.denominator);
+        return new Rational(this.numerator/gcd(this.numerator,this.denominator),this.denominator/gcd(this.numerator,this.denominator));
 
-        if(gcd == 1l){
-            return this;
-        }
-        else{
-            return new Rational(this.numerator/gcd,this.denominator/gcd);
-        }
     }
 
  /*   @TestMe

@@ -4,6 +4,9 @@ import org.junit.internal.MethodSorter;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -15,8 +18,8 @@ public class RationalTest {
     Rational rationalNumber2;
     @org.junit.Before
     public void setUp() throws Exception {
-        rationalNumber1  = new Rational(2l,3l);
-        rationalNumber2  = new Rational(4l,5l);
+        rationalNumber1  = new Rational(2l,4l);
+        rationalNumber2  = new Rational(1l,2l);
     }
 
     @org.junit.Test
@@ -72,8 +75,8 @@ public class RationalTest {
     @org.junit.Test
     public void multiply() throws Exception {
         Rational tempRational = rationalNumber1.multiply(rationalNumber2);
-        assertEquals(tempRational.getNumerator(),8);
-        assertEquals(tempRational.getDenominator(),15);
+        assertEquals(tempRational.getNumerator(),1);
+        assertEquals(tempRational.getDenominator(),4);
     }
 
     @org.junit.Test
@@ -83,27 +86,41 @@ public class RationalTest {
         assertEquals(tempRational.getDenominator(),12);
     }
 
+    @org.junit.Test
+    public void isToStringWorking() throws Exception {
+        assertEquals(rationalNumber1.toString(),"1/2");
+    }
+
+
     @Test
     public void testGcd() throws InvocationTargetException, IllegalAccessException {
         Class<Rational> classRational = Rational.class;
-       /* Annotation [] ann = classRational.getAnnotationsByType(TestMe.class);
 
-        for (Annotation annotation : ann ){
+     Annotation [] annotation = classRational.getDeclaredAnnotations();
+        for (Annotation annotationIterator : annotation ){
+            if(annotationIterator.annotationType() == TestMe.class){
 
-        }*/
-         Method []  methods = classRational.getDeclaredMethods();
-        Method gcdMethod = null;
-        for(Method method : methods){
-            if(method.getName().equalsIgnoreCase("gcd")){
-                gcdMethod = method;
             }
         }
-        gcdMethod.setAccessible(true);
+        //classRational.
+
+        Method []  methods = classRational.getDeclaredMethods();
+
+        List<Method> list = new ArrayList<>();
+
+        Method methodToTest = null;
+        for(Method method : methods){
+            if(method.isAnnotationPresent(TestMe.class)){
+                methodToTest = method;
+            }
+        }
+        //gcdMethod.setAccessible(true);
 //        Object object1 = new Long(4l);
 //        Object object2  = new Long(8l);
 //        long gcd = (long) gcdMethod.invoke(object1,object2);
-        long gcd = (long) gcdMethod.invoke(4l,8l);
+        methodToTest.setAccessible(true);
+        Rational tempRational = (Rational) methodToTest.invoke(rationalNumber1);
 
-        assertEquals(4,gcd);
+        assertEquals(tempRational.toString(),"1/2");
     }
 }
