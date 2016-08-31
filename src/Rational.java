@@ -2,7 +2,7 @@
  * @Documented
  * @author Sid
  * @version 0.1
- *
+ * @see java.lang.Comparable
  * Created by user-2 on 31/8/16.
  */
 public class Rational extends Number implements Comparable<Rational> {

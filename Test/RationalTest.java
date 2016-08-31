@@ -14,6 +14,7 @@ import static org.junit.Assert.*;
 /**
  * Created by user-2 on 31/8/16.
  */
+
 public class RationalTest {
     Rational rationalNumber1;
     Rational rationalNumber2;
