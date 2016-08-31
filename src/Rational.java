@@ -103,7 +103,7 @@ public class Rational extends Number implements Comparable<Rational> {
         tempRational.denominator = this.denominator * secondRational.numerator;
         return  tempRational.makeSimplest();
     }
-
+    @TestMe
     private  long gcd (long firstNumber , long secondNumber){
         if(secondNumber == 0){
             return firstNumber;
@@ -111,17 +111,10 @@ public class Rational extends Number implements Comparable<Rational> {
         return gcd(secondNumber, firstNumber%secondNumber);
     }
 
-
     @TestMe
     private Rational makeSimplest(){
         return new Rational(this.numerator/gcd(this.numerator,this.denominator),this.denominator/gcd(this.numerator,this.denominator));
 
     }
-
- /*   @TestMe
-    private long lcm(long firstNumber, long secondNumber){
-        return firstNumber * (secondNumber / gcd(firstNumber, secondNumber));
-    }*/
-
 
 }
