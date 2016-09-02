@@ -5,7 +5,7 @@
  * @see java.lang.Comparable
  * Created by user-2 on 31/8/16.
  */
-public class Rational extends Number implements Comparable<Rational> {
+public class Rational extends Number implements Comparable<Rational>,Cloneable {
     private long numerator;
     private long denominator;
 
@@ -104,17 +104,29 @@ public class Rational extends Number implements Comparable<Rational> {
         return  multiplicationResult;
     }
 
+    @Override
+    public Rational clone() throws CloneNotSupportedException {
+        return (Rational)super.clone();
+    }
+
     public Rational divide(Rational secondRational){
         Rational divisionResult = new Rational(1l,1l);
+        if(secondRational.numerator==0){
+            throw new IllegalArgumentException("Could not divide");
+        }
         divisionResult.numerator = this.numerator * secondRational.denominator;
         divisionResult.denominator = this.denominator * secondRational.numerator;
         divisionResult.reduceToSimplestForm();
+
         return divisionResult;
     }
 
+    @Override
+    public int hashCode() {
+        return Integer.parseInt(Long.toString(this.numerator)+Long.toString(this.denominator));
+    }
 
     /**  Calculates gcd of two rational numbers
-    *
     * @param numerator : first number
      *@param denominator : second number
     * @return long
@@ -127,6 +139,19 @@ public class Rational extends Number implements Comparable<Rational> {
         return gcd(denominator, numerator%denominator);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null){
+            return false;
+        }
+        Rational rational = (Rational) obj;
+        if(this.hashCode()==obj.hashCode()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     /**  Reduce rational number to simplest form
      *
      */
@@ -135,6 +160,16 @@ public class Rational extends Number implements Comparable<Rational> {
         long gcd = gcd(this.numerator,this.denominator);
         this.numerator = this.numerator/gcd;
         this.denominator = this.denominator/gcd;
+        if(this.denominator<0){
+            if(this.numerator<0){
+                this.numerator*=-1L;
+                this.denominator*=-1L;
+            }else{
+                this.numerator*=-1L;
+                this.denominator*=-1L;
+            }
+        }
+
     }
 
 }
