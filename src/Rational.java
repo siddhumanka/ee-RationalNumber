@@ -1,5 +1,5 @@
 /**
- * @Documented
+ *
  * @author Sid
  * @version 0.1
  * @see java.lang.Comparable
@@ -10,8 +10,8 @@ public class Rational extends Number implements Comparable<Rational> {
     private long denominator;
 
     public Rational(){
-        this.numerator = 0l;
-        this.denominator = 1l;
+        this.numerator = 10L;
+        this.denominator = -12L;
     }
 
     public Rational(long numerator, long denominator) {
@@ -73,49 +73,63 @@ public class Rational extends Number implements Comparable<Rational> {
     @Override
     public String toString() {
         this.reduceToSimplestForm();
-        return this.numerator +"/"+ this.denominator;
+        if(this.denominator==1) {
+            return Long.toString(this.numerator);
+        }else
+            return this.numerator + "/" + this.denominator;
+
     }
 
     public Rational add(Rational secondRational){
-        Rational tempRational = new Rational(1l,1l);
-        tempRational.numerator = this.numerator * secondRational.denominator + this.denominator*secondRational.numerator;
-        tempRational.denominator = this.denominator * secondRational.denominator;
-        tempRational.reduceToSimplestForm();
-        return tempRational;
+        Rational additionResult = new Rational(1l,1l);
+        additionResult.numerator = ((this.numerator * secondRational.denominator) + (this.denominator*secondRational.numerator));
+        additionResult.denominator = this.denominator * secondRational.denominator;
+        additionResult.reduceToSimplestForm();
+        return additionResult;
     }
 
     public Rational subtract(Rational secondRational){
-        Rational tempRational = new Rational(1l,1l);
-        tempRational.numerator = this.numerator * secondRational.denominator - this.denominator*secondRational.numerator;
-        tempRational.denominator = this.denominator * secondRational.denominator;
-        tempRational.reduceToSimplestForm();
-        return tempRational;
+        Rational subtractionResult = new Rational(1l,1l);
+        subtractionResult.numerator = ((this.numerator * secondRational.denominator) - (this.denominator*secondRational.numerator));
+        subtractionResult.denominator = this.denominator * secondRational.denominator;
+        subtractionResult.reduceToSimplestForm();
+        return subtractionResult;
     }
 
     public Rational multiply(Rational secondRational){
-        Rational tempRational = new Rational(1l,1l);
-        tempRational.numerator = this.numerator * secondRational.numerator ;
-        tempRational.denominator = this.denominator * secondRational.denominator;
-        tempRational.reduceToSimplestForm();
-        return  tempRational;
+        Rational multiplicationResult = new Rational(1l,1l);
+        multiplicationResult.numerator = this.numerator * secondRational.numerator ;
+        multiplicationResult.denominator = this.denominator * secondRational.denominator;
+        multiplicationResult.reduceToSimplestForm();
+        return  multiplicationResult;
     }
 
     public Rational divide(Rational secondRational){
-        Rational tempRational = new Rational(1l,1l);
-        tempRational.numerator = this.numerator * secondRational.denominator;
-        tempRational.denominator = this.denominator * secondRational.numerator;
-        tempRational.reduceToSimplestForm();
-        return tempRational;
+        Rational divisionResult = new Rational(1l,1l);
+        divisionResult.numerator = this.numerator * secondRational.denominator;
+        divisionResult.denominator = this.denominator * secondRational.numerator;
+        divisionResult.reduceToSimplestForm();
+        return divisionResult;
     }
 
+
+    /**  Calculates gcd of two rational numbers
+    *
+    * @param numerator : first number
+     *@param denominator : second number
+    * @return long
+    */
     @TestMe
-    private  long gcd (long firstNumber , long secondNumber){
-        if(secondNumber == 0){
-            return firstNumber;
+    private  long gcd (long numerator , long denominator){
+        if(denominator == 0){
+            return numerator;
         }
-        return gcd(secondNumber, firstNumber%secondNumber);
+        return gcd(denominator, numerator%denominator);
     }
 
+    /**  Reduce rational number to simplest form
+     *
+     */
     @TestMe
     private void reduceToSimplestForm(){
         long gcd = gcd(this.numerator,this.denominator);

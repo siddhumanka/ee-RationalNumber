@@ -26,8 +26,8 @@ public class RationalTest {
 
     @Before
     public void setUp() throws Exception {
-        rationalNumber1 = new Rational(2l, 4l);
-        rationalNumber2 = new Rational(1l, 2l);
+        rationalNumber1 = new Rational(1,-1);
+        rationalNumber2 = new Rational(1,-1);
 
         for (Method method : methods) {
             if (method.isAnnotationPresent(TestMe.class)) {
@@ -78,21 +78,21 @@ public class RationalTest {
 
     @Test
     public void itShouldCompareTwoRationalNumbers() throws Exception {
-        assertEquals(rationalNumber1.compareTo(rationalNumber2), -1);
+        assertEquals(rationalNumber1.compareTo(rationalNumber2), 0);
     }
 
     @Test
     public void itShouldAddTwoRationalNumbers() throws Exception {
         Rational tempRational = rationalNumber1.add(rationalNumber2);
-        assertEquals(tempRational.getNumerator(), 22);
-        assertEquals(tempRational.getDenominator(), 15);
+        assertEquals(tempRational.getNumerator(), -2);
+        assertEquals(tempRational.getDenominator(), 1);
     }
 
     @Test
     public void itShouldSubtractTwoRationalNumbers() throws Exception {
         Rational tempRational = rationalNumber1.subtract(rationalNumber2);
-        assertEquals(tempRational.getNumerator(), -2);
-        assertEquals(tempRational.getDenominator(), 15);
+        assertEquals(tempRational.getNumerator(), 0);
+        assertEquals(tempRational.getDenominator(), 1);
     }
 
     @Test
@@ -111,14 +111,14 @@ public class RationalTest {
 
     @Test
     public void itShouldValidateToString() throws Exception {
-        assertEquals(rationalNumber1.toString(), "1/2");
+        assertEquals(rationalNumber2.toString(), "-5/6");
     }
 
     @Test
     public void itShouldReduceRationalNumberToSimplestForm() throws InvocationTargetException, IllegalAccessException {
         reductionMethod.setAccessible(true);
         reductionMethod.invoke(rationalNumber1);
-        assertEquals(rationalNumber1.toString(), "1/2");
+        assertEquals(rationalNumber1.toString(), "-1");
     }
     @Test
     public void itShouldProduceRightGCD() throws InvocationTargetException, IllegalAccessException {
@@ -126,5 +126,7 @@ public class RationalTest {
         long gcd = (long) gcdMethod.invoke(rationalNumber1, 4l, 8l);
         assertEquals(gcd, 4l);
     }
+
+
 
 }
